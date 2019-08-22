@@ -5,7 +5,8 @@ import argparse
 import sys
 import re
 import csv
-
+import pickle
+import os
 
 
 #################
@@ -31,8 +32,11 @@ def check_arg (args=None) :
     parser = argparse.ArgumentParser(prog = '04-assembly_quast.py', formatter_class=argparse.RawDescriptionHelpFormatter, description= '04-assembly_quast.py creates a csv file from report.tsv file.')
 
     
-    parser.add_argument('--input' ,'-i',required=True, help='Insert report.tsv from path:Service_folder/ANALYSIS/05-assembly')
-    parser.add_argument('--output','-o', required=True, help='The output (csv file)')
+    parser.add_argument('--input' ,'-i',required=True, help='Insert report.tsv from path:Service_folder /home/user/Service_folder/ANALYSIS/05-assembly/quast_all/report.tsv ')
+    
+    parser.add_argument('--output_bn','-b', required=True, help='The output in binary file')
+    
+    parser.add_argument('--output_csv','-c', required=True, help='The output in csv file')
     
 
     return parser.parse_args()
@@ -44,7 +48,7 @@ def check_arg (args=None) :
 #################
 
 
-def quast_dictionary (file_txt):
+def quast_dictionary (file_tsv):
 
     '''
     Description:
@@ -56,7 +60,7 @@ def quast_dictionary (file_txt):
     '''
 
 
-    lookupfile = open (file_txt, 'r')
+    lookupfile = open (file_tsv, 'r')
     lines = lookupfile.readlines()
     samples = lines[0].strip().split("\t")
     samples = samples [1:]#samples_id
@@ -71,7 +75,7 @@ def quast_dictionary (file_txt):
         for i in range (len(samples)):
             if not samples[i] in quast_dict:
                 quast_dict [samples [i]] = {} 
-                quast_dict[samples [i]] [parameter] = dic [i+1]
+            quast_dict[samples [i]] [parameter] = dic [i+1]
         
     return quast_dict#nested dictionary
 
@@ -92,17 +96,45 @@ def quast_dictionary_csv (quast_dict, csvfile):
     Return:
         quast_dict_csv
         
-    '''
+   '''
     
-    headers = quast_dict.values()[0].keys() 
-    with open(csvfile, "wb") as f:
+    dic     = quast_dict #Nested dictionary 
+    parameters = sorted (list(list (dic.values())[0].keys()))  #Encabezado de las columnas
+
+    with open(csvfile, "w") as f:
         w = csv.writer( f )
-        w.writerow(['sample_name'] + headers)
-        parameters = headers
-        for sample in quast_dict.keys():
-            w.writerow([sample] + [quast_dict[sample][parameter] for parameter in parameters])
+        w.writerow(['sample_name'] + parameters)# printea la primera fila
+
+       
+        for sample in dic.keys():
+            #print (dic.keys())
+            w.writerow([sample] + [dic[sample][parameter] for parameter in parameters])
+
+
+            
+#################
+### FUNCTIONS ###
+#################
+
+
+def quast_dictionary_bn (quast_dict, quast_dict_bn):
     
-    
+    '''
+
+    Description:
+        Function to create a binary file from a dictionary
+    Input:
+        kmer_dict from previus funtion
+    Return:
+        kmer_dict_bn
+    '''
+
+
+    pickle_out = open(quast_dict_bn,"wb")
+    pickle.dump(quast_dict, pickle_out)
+    pickle_out.close()
+
+    return     
 
 ###################
 ### MAIN SCRIPT ###
@@ -114,19 +146,30 @@ if __name__ == '__main__' :
 
 
     # Variables
-    version = '04-assembly_quast_all v 0.1.0.'  # Script version
+    version = '04-assembly_quast_all v 0.2.0.'  # Script version
+    arguments = check_arg(sys.argv[1:])
+    
     
     # Create a dictionary
-    arguments = check_arg(sys.argv[1:])
     quast_dict = quast_dictionary (arguments.input)
     
-    print (quast_dict)   
+    print ('quast_dict done')
+    print (quast_dict)
+    
 
     #Convert the dictionary to csv file
     
-    quast_dictionary_csv (quast_dict, arguments.output)
+    quast_dictionary_csv (quast_dict, arguments.output_csv)
     
-    print (quast_dictionary_csv)
+    print ('quast_dictionary_csv done')
+   
+  
+         
+    # Save the dicctionary to binary file
+    
+    quast_dictionary_bn (quast_dict, arguments.output_bn)
+        
+    print ('quast_dictionary_bn done')
             
  
 
