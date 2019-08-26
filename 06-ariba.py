@@ -34,7 +34,7 @@ def check_arg (args=None) :
 
     parser.add_argument('--input' ,'-i',required=True, help='Insert report.tsv from path:Service_folder /home/user/Service_folder/ANALYSIS/06-ariba/sumaryl/out.summarycard.csv ')
     
-    parser.add_argument('--database','-d', required=True, help='The database used (card, megares or srst2')
+    parser.add_argument('--database','-d', required=True, help='The database used (card, megares or srst2_argannot')
                      
     parser.add_argument('--output_bn','-b', required=True, help='The output in binary file')
     
@@ -110,7 +110,7 @@ def ariba_dictionary_megares (file_csv):
     with open(file_csv) as csvfile:
         data = list (csv.reader(csvfile))
         genes_list = {}
-        genes_list [sample] = {}
+       
         for row in range (len(data)):
             if row == 0:
                 header = data[row]
@@ -133,6 +133,52 @@ def ariba_dictionary_megares (file_csv):
 
 
     return (genes_list)
+
+
+#################
+### FUNCTIONS ###
+#################
+
+
+def ariba_dictionary_srst2 (file_csv):
+    
+    '''
+    Description:
+        Function to extract the relevant part of out.summarymegares.csv file
+    Input:
+        out.summarydatbase.csv file
+    Return:
+        dictionary
+    '''
+    
+    parameter = 'resistance_genes_srst2'
+    with open(file_csv) as csvfile:
+        data = list (csv.reader(csvfile))
+        genes_list = {}
+       
+        for row in range (len(data)):
+            if row == 0:
+                header = data[row]
+            else:
+                genes = []
+                for i in range (len (data [row])):
+                    if  data[row][i] == 'yes':
+                        gene_resis = 'yes'
+                        genes.append(header[i])
+                    else:
+                        gene_resis = 'no'
+
+                tmp = os.path.basename (data[row][0])
+                sample = re.search(r"(.*?(?=srst2_argannotreport.tsv))", tmp).group(0) 
+
+                genes_list [sample] = {}
+                genes_list [sample] [parameter] = genes
+                genes_list[sample].update(resistance_megares = gene_resis )
+
+
+
+    return (genes_list)
+
 
     
 #################
@@ -205,17 +251,20 @@ if __name__ == '__main__' :
     
     # Create a dictionary
     
-    #if arguments.database == 'card':
-    ariba_dict = ariba_dictionary_card (arguments.input)
-    print ('ariba_dict_card done')
-    print (ariba_dict)
+    if arguments.database == 'card':
+        ariba_dict = ariba_dictionary_card (arguments.input)
+        print ('ariba_dict_card done')
+        print (ariba_dict)
     
-    #if arguments.database == 'megares':
-        #ariba_dict = ariba_dictionary_megares (arguments.input)
+    if arguments.database == 'megares':
+        ariba_dict = ariba_dictionary_megares (arguments.input)
+        print ('ariba_dict_megares done')
+        print (ariba_dict)
     
-        #print ('ariba_dict_megares done')
-        #print (ariba_dict)
-    
+    if arguments.database == 'srst2_argannot':
+        ariba_dict = ariba_dictionary_megares (arguments.input)
+        print ('ariba_dict_srst2 done')
+        print (ariba_dict)
 
     #Convert the dictionary to csv file
     
