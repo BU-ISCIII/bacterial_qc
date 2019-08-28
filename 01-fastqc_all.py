@@ -123,8 +123,7 @@ def fastqc_all_dictionary (path_list, argument_step, argument_tag):
                             step = argument_tag [i]
                             if not sample in fastqc_all_dict:
                                 fastqc_all_dict [sample]={}
-                        else:
-                            continue
+                                break
 
         if not sample:
             continue
