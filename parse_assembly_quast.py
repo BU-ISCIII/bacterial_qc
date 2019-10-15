@@ -32,13 +32,14 @@ def check_arg (args=None) :
     parser = argparse.ArgumentParser(prog = '04-assembly_quast.py', formatter_class=argparse.RawDescriptionHelpFormatter, description= '04-assembly_quast.py creates a csv file from report.tsv file.')
 
     
-    parser.add_argument('--input' ,'-i',required=True, help='Insert report.tsv from path:Service_folder /home/user/Service_folder/ANALYSIS/05-assembly/quast_all/report.tsv ')
+    parser.add_argument('--path' ,'-p',required=True, help='Insert report.tsv from path:Service_folder /home/user/Service_folder/ANALYSIS/05-assembly/quast_all/report.tsv ')
     
     parser.add_argument('--output_bn','-b', required=True, help='The output in binary file')
     
     parser.add_argument('--output_csv','-c', required=True, help='The output in csv file')
     
-
+    #Example: python3 parse_assembly_quast.py -p /home/s.gonzalez/SRVCNM046_20170717_NEISSERIAG-II_RA_S/ANALYSIS/05-assembly/quast_all/report.tsv -b p_dic.bn -c p_assembly.csv
+    
     return parser.parse_args()
 
 
@@ -85,56 +86,50 @@ def quast_dictionary (file_tsv):
 #################
 
 
-def quast_dictionary_csv (quast_dict, csvfile):
-    
+def dictionary2csv (dictionary, csv_file):
+
     '''
-    
+
     Description:
         Function to create a csv from a dictionary
     Input:
-        quast_dict from previus funtion
+        dictionary
     Return:
-        quast_dict_csv
-        
+        csv file
+
    '''
-    
-    dic     = quast_dict #Nested dictionary 
-    parameters = sorted (list(list (dic.values())[0].keys()))  #Encabezado de las columnas
-
-    with open(csvfile, "w") as f:
-        w = csv.writer( f )
-        w.writerow(['sample_name'] + parameters)# printea la primera fila
-
-       
-        for sample in dic.keys():
-            #print (dic.keys())
-            w.writerow([sample] + [dic[sample][parameter] for parameter in parameters])
 
 
-            
+    header = sorted(set(i for b in map(dict.keys, dictionary.values()) for i in b))
+    with open(csv_file, 'w', newline="") as f:
+        write = csv.writer(f)
+        write.writerow(['sample', *header])
+        for a, b in dictionary.items():
+            write.writerow([a]+[b.get(i, '') for i in header])
+
 #################
 ### FUNCTIONS ###
 #################
 
 
-def quast_dictionary_bn (quast_dict, quast_dict_bn):
-    
+def dictionary2bn (dictionary, binary_file):
+
     '''
 
     Description:
         Function to create a binary file from a dictionary
     Input:
-        kmer_dict from previus funtion
+        dictionary
     Return:
-        kmer_dict_bn
+        binary file
     '''
 
 
-    pickle_out = open(quast_dict_bn,"wb")
-    pickle.dump(quast_dict, pickle_out)
+    pickle_out = open(binary_file,"wb")
+    pickle.dump(dictionary, pickle_out)
     pickle_out.close()
 
-    return     
+    return
 
 ###################
 ### MAIN SCRIPT ###
@@ -149,25 +144,22 @@ if __name__ == '__main__' :
     version = '04-assembly_quast_all v 0.2.0.'  # Script version
     arguments = check_arg(sys.argv[1:])
     
-    
     # Create a dictionary
-    quast_dict = quast_dictionary (arguments.input)
+    quast_dict = quast_dictionary (arguments.path)
     
     print ('quast_dict done')
-    print (quast_dict)
+    #print (quast_dict)
     
-
     #Convert the dictionary to csv file
     
-    quast_dictionary_csv (quast_dict, arguments.output_csv)
+    dictionary2csv (quast_dict, arguments.output_csv)
     
     print ('quast_dictionary_csv done')
    
-  
          
     # Save the dicctionary to binary file
     
-    quast_dictionary_bn (quast_dict, arguments.output_bn)
+    dictionary2bn (quast_dict, arguments.output_bn)
         
     print ('quast_dictionary_bn done')
             

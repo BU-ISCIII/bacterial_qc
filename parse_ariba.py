@@ -32,7 +32,7 @@ def check_arg (args=None) :
 
     parser = argparse.ArgumentParser(prog = '06-ariba.py', formatter_class=argparse.RawDescriptionHelpFormatter, description= '06-ariba.py creates a csv file from results.txt file')
 
-    parser.add_argument('--input' ,'-i',required=True, help='Insert report.tsv from path:Service_folder /home/user/Service_folder/ANALYSIS/06-ariba/sumaryl/out.summarycard.csv ')
+    parser.add_argument('--path' ,'-p',required=True, help='Insert report.tsv from path:Service_folder /home/user/Service_folder/ANALYSIS/06-ariba/sumaryl/out.summarycard.csv ')
     
     parser.add_argument('--database','-d', required=True, help='The database used (card, megares or srst2_argannot')
                      
@@ -110,7 +110,7 @@ def ariba_dictionary_megares (file_csv):
     with open(file_csv) as csvfile:
         data = list (csv.reader(csvfile))
         genes_list = {}
-       
+        
         for row in range (len(data)):
             if row == 0:
                 header = data[row]
@@ -124,12 +124,11 @@ def ariba_dictionary_megares (file_csv):
                         gene_resis = 'no'
 
                 tmp = os.path.basename (data[row][0])
-                sample = re.search(r"(.*?(?=megaresreport.tsv))", tmp).group(0)
+                sample = re.search(r"(.*?(?=megaresreport.tsv,))", tmp).group(0)
 
                 genes_list [sample] = {}
                 genes_list [sample] [parameter] = genes
                 genes_list[sample].update(resistance_megares = gene_resis )
-
 
 
     return (genes_list)
@@ -144,14 +143,14 @@ def ariba_dictionary_srst2 (file_csv):
     
     '''
     Description:
-        Function to extract the relevant part of out.summarymegares.csv file
+        Function to extract the relevant part of out.summarysrst2_argannot.csv file
     Input:
         out.summarydatbase.csv file
     Return:
         dictionary
     '''
     
-    parameter = 'resistance_genes_srst2'
+    parameter = 'resistance_genes_srst2_argannot'
     with open(file_csv) as csvfile:
         data = list (csv.reader(csvfile))
         genes_list = {}
@@ -173,7 +172,7 @@ def ariba_dictionary_srst2 (file_csv):
 
                 genes_list [sample] = {}
                 genes_list [sample] [parameter] = genes
-                genes_list[sample].update(resistance_megares = gene_resis )
+                genes_list[sample].update(resistance_srst2_argannot = gene_resis )
 
 
 
@@ -186,54 +185,51 @@ def ariba_dictionary_srst2 (file_csv):
 #################
 
 
-def ariba_dictionary_csv (genes_list, csvfile):
-    
+def dictionary2csv (dictionary, csv_file):
+
     '''
-    
+
     Description:
         Function to create a csv from a dictionary
     Input:
-        genes_list from previus funtion
+        dictionary
     Return:
-        card_dict_csv
-        
+        csv file
+
    '''
-    
-    dic     = genes_list #Nested dictionary 
-    parameters = sorted (list(list (dic.values())[0].keys())) 
-
-    with open(csvfile, "w") as f:
-        w = csv.writer( f )
-        w.writerow(['sample_name'] + parameters)
-
-        for sample in dic.keys():
-            w.writerow([sample] + [dic[sample][parameter] for parameter in parameters])
 
 
+    header = sorted(set(i for b in map(dict.keys, dictionary.values()) for i in b))
+    with open(csv_file, 'w', newline="") as f:
+        write = csv.writer(f)
+        write.writerow(['sample', *header])
+        for a, b in dictionary.items():
+            write.writerow([a]+[b.get(i, '') for i in header])
             
+
 #################
 ### FUNCTIONS ###
 #################
 
 
-def ariba_dictionary_bn (genes_list, ariba_dict_bn):
-    
+def dictionary2bn (dictionary, binary_file):
+
     '''
 
     Description:
         Function to create a binary file from a dictionary
     Input:
-        genes_list from previus funtion
+        dictionary
     Return:
-       ariba_dict_bn
+        binary file
     '''
 
 
-    pickle_out = open(ariba_dict_bn,"wb")
-    pickle.dump(genes_list, pickle_out)
+    pickle_out = open(binary_file,"wb")
+    pickle.dump(dictionary, pickle_out)
     pickle_out.close()
 
-    return     
+    return   
 
 ###################
 ### MAIN SCRIPT ###
@@ -252,31 +248,33 @@ if __name__ == '__main__' :
     # Create a dictionary
     
     if arguments.database == 'card':
-        ariba_dict = ariba_dictionary_card (arguments.input)
+        ariba_dict = ariba_dictionary_card (arguments.path)
         print ('ariba_dict_card done')
-        print (ariba_dict)
+        #print (ariba_dict)
     
     if arguments.database == 'megares':
-        ariba_dict = ariba_dictionary_megares (arguments.input)
+        ariba_dict = ariba_dictionary_megares (arguments.path)
         print ('ariba_dict_megares done')
-        print (ariba_dict)
+        #print (ariba_dict)
     
     if arguments.database == 'srst2_argannot':
-        ariba_dict = ariba_dictionary_megares (arguments.input)
+        ariba_dict = ariba_dictionary_megares (arguments.path)
         print ('ariba_dict_srst2 done')
-        print (ariba_dict)
+        #print (ariba_dict)
 
     #Convert the dictionary to csv file
     
-    ariba_dictionary_csv (ariba_dict, arguments.output_csv)
+    dictionary2csv (ariba_dict, arguments.output_csv)
     
     print ('ariba_dictionary_csv done')
    
-  
          
     # Save the dicctionary to binary file
     
-    ariba_dictionary_bn (ariba_dict, arguments.output_bn)
+    dictionary2bn (ariba_dict, arguments.output_bn)
         
     print ('ariba_dictionary_bn done')
+    
+    
+    
             

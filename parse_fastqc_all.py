@@ -31,7 +31,6 @@ def check_arg (args=None) :
 
     parser = argparse.ArgumentParser(prog = '01-fastqc_all.py', formatter_class=argparse.RawDescriptionHelpFormatter, description= '01-fastqc_all.py creates a csv file from fastqc_data.txt files.')
 
-
     parser.add_argument('--path' ,'-p',required=True, help='Insert path where there are all the fastqc_data.txt as an example:/home/user/Service_folder/ANALYSIS/')
 
     parser.add_argument('--step' ,'-s',nargs='+',required=True, help='Insert list from fastqc_data.txt check the line of filename and insert the end of the string which has the information of the step and the forward and reverse reads as an example:_R1.fastq.gz _R2.fastq.gz _R1_filtered.fastq.gz _R2_filtered.fastq.gz')
@@ -41,6 +40,8 @@ def check_arg (args=None) :
     parser.add_argument('--output_bn','-b', required=True, help='The output in binary file')
 
     parser.add_argument('--output_csv','-c', required=True, help='The output in csv file')
+    
+    #Example:python3 parse_fastqc_all.py -p /home/s.gonzalez/SRVCNM046_20170717_NEISSERIAG-II_RA_S/ANALYSIS -s _R1.fastq.gz _R2.fastq.gz _R1_filtered.fastq.gz _R2_filtered.fastq.gz -t pre_R1 pre_R2 post_R1 post_R2 -b p_dict.pickel -c p_fastq.csv 
 
 
     return parser.parse_args()
@@ -167,7 +168,7 @@ def dictionary2csv (dictionary, csv_file):
     header = sorted(set(i for b in map(dict.keys, dictionary.values()) for i in b))
     with open(csv_file, 'w', newline="") as f:
         write = csv.writer(f)
-        write.writerow(['sample_name', *header])
+        write.writerow(['sample', *header])
         for a, b in dictionary.items():
             write.writerow([a]+[b.get(i, '') for i in header])
 
