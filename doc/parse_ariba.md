@@ -68,7 +68,7 @@ The output is obtained in a binary file and a csv file
 For running in a local computer:
 
 ```
-python3 /path/to/parse_assembly_quast.py 
+python3 /path/to/parse_ariba.py 
 -p /path/to/ariba/ 
 -c /path/to/RESULTS/dic_ariba_AMR_all.csv 
 -b /path/to/RESULTS/dic_ariba_AMR_all.bn
