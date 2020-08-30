@@ -14,7 +14,7 @@
 
 [Scripts](https://github.com/BU-ISCIII/bacterial_qc/tree/develop) for the development of  quality control (QC) tools for the different stages of [Outbreak Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
 
-Tools for parsing different output files obtained in the Preprocesing and Postprocessing (FastQC), Species identification (Kraken-Bracken), Quality of Assembly (Spades) and Charaterization (Ariba). 
+Tools for parsing different output files obtained in the Preprocesing and Postprocessing (FastQC), Species identification (Kraken-Bracken), Quality of Assembly (Spades) and Charaterization (Ariba) steps. 
 
 ## REQUIRED DEPENDENCIES
 
@@ -26,7 +26,7 @@ In order to use these scripts, you can download them:
 ## DESCRIPTION & USAGE
 
 
-### Tools for parsing statistics obtained in the Pre and Post Processing, Quality Control Assembly, Species Control/Identification and Characterization (Resistome, Virulome and MLST Typing) steps of [Outbreak Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
+Tools for parsing statistics obtained in the Pre and Post Processing, Quality Control Assembly, Species Control/Identification and Characterization (Resistome, Virulome and MLST Typing) steps of [Outbreak Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
 
 * [parse_fastqc_pre_post.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_fastqc_pre_post.md)
 * [parse_assembly_quast.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_assembly_quast.md)
