@@ -1,4 +1,4 @@
-<img src="doc/images/BU_ISCIII_logo.png" alt="logo" width="300" align="right"/>
+<img src="images/BU_ISCIII_logo.png" alt="logo" width="300" align="right"/>
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
@@ -6,7 +6,9 @@
 
 <br>
 
+![image](https://github.com/BU-ISCIII/qc_exome_tools/blob/develop/img/imgqctools.png)
 
+<br>
 ## INTRODUCTION
 
 
