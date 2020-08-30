@@ -6,7 +6,7 @@
 
 <br>
 
-<img src="bacterial_qc/images/Schema_Brucellosis_Ourbreak.png" alt="logo" align="center"/>
+![image](https://github.com/BU-ISCIII/bacterial_qc/blob/master/images/Schema_Brucellosis_Ourbreak.png)
 
 
 <br>
