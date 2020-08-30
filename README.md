@@ -26,8 +26,7 @@ In order to use these scripts, you can download them:
 ## DESCRIPTION & USAGE
 
 
-### Tools for parsing statistics obtained in the Pre and Post Processing [parse_fastqc_pre_post.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_fastqc_pre_post.md), Quality Control Assembly Species Control/Identification [parse_assembly_quast.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_assembly_quast.md) and Characterization [parse_ariba.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_ariba.md)
-[mlst_report.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/mlst_report.md)(Resistome, Virulome and MLST Typing) steps:
+### Tools for parsing statistics obtained in the Pre and Post Processing, Quality Control Assembly, Species Control/Identification and Characterization (Resistome, Virulome and MLST Typing) steps of [Outbreak Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
 
 * [parse_fastqc_pre_post.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_fastqc_pre_post.md)
 * [parse_assembly_quast.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_assembly_quast.md)
