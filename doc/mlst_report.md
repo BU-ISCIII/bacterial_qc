@@ -1,4 +1,4 @@
-# [parse_ariba.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/mlst_report.py)
+# [mlst_report.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/mlst_report.py)
 
 
 ## Description:
