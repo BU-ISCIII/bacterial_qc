@@ -26,7 +26,7 @@ In order to use these scripts, you can download them:
 ## DESCRIPTION & USAGE
 
 
-### Tools for parsing statistics obtained in the Pre and Post procesing, Species ID, QC-Assembly and Characterization steps:
+### Tools for parsing statistics obtained in the Pre and Post Processing, Species Control/Identification, Quality Control Assembly and Characterization (Resistome, Virulome and MLST Typing) steps:
 
 * [parse_fastqc_pre_post.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_fastqc_pre_post.md)
 * [parse_assembly_quast.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_assembly_quast.md)
