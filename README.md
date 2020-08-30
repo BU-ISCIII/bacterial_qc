@@ -31,8 +31,9 @@ In order to use these scripts, you can download them:
 
 ### Tools for parsing statistics obtained in the Pre and Post procesing, Species ID, QC-Assembly and Characterization steps:
 
-* [parse_fastqc_all.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/parse_fastqc_all.py)
-* [parse_assembly_quast.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/parse_assembly_quast.py)
-* [parse_Kraken.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/parse_Kraken.py)
-
+* [parse_fastqc_pre_post.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_fastqc_pre_post.md)
+* [parse_assembly_quast.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_assembly_quast.md)
+* [parse_Kraken.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_Kraken.md)
+* [parse_ariba.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/parse_ariba.md)
+* [mlst_report.py](https://github.com/BU-ISCIII/bacterial_qc/blob/master/doc/mlst_report.md)
 
