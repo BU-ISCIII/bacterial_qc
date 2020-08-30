@@ -4,12 +4,10 @@
 
 # **QC Bacterial Tools**
 
-<br>
+<p align="center">
+  <img width="800" height="800" src="https://github.com/BU-ISCIII/bacterial_qc/blob/master/images/Schema_Brucellosis_Ourbreak.png">
+</p>
 
-![image](https://github.com/BU-ISCIII/bacterial_qc/blob/master/images/Schema_Brucellosis_Ourbreak.png)
-
-
-<br>
 
 ## INTRODUCTION
 
