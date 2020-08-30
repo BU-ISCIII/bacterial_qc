@@ -12,7 +12,7 @@
 ## INTRODUCTION
 
 
-[Scripts](https://github.com/BU-ISCIII/bacterial_qc/tree/develop) for the development of  quality control (QC) tools for the different stages of [Outbreak Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
+[Scripts](https://github.com/BU-ISCIII/bacterial_qc/tree/develop) for the development of  quality control (QC) tools for the different stages of [Brucellosis Outbreak](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
 
 Tools for parsing different output files obtained in the Preprocesing and Postprocessing (FastQC), Species identification (Kraken-Bracken), Quality of Assembly (Spades) and Charaterization (Ariba) steps. 
 
