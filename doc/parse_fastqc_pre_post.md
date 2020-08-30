@@ -2,7 +2,7 @@
 
 
 ## Description:
-Python script to create a Dictionary and csv file with the [FastQC Basic Statistics](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/1%20Basic%20Statistics.html) data obtained from the fastqc_data.txt files of [BU-ISCIII-exome-pipeline](https://github.com/BU-ISCIII/exome_pipeline).
+Python script to create a Dictionary and csv file with the [FastQC Basic Statistics](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/1%20Basic%20Statistics.html) data obtained from the fastqc_data.txt files of [Outbreak_Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis).
 
 The FastQC Basic Statistics module generates some simple composition statistics for the file analysed.
 
