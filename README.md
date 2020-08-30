@@ -7,7 +7,7 @@
 <br>
 
 <img src="bacterial_qc/images/Schema_Brucellosis_Ourbreak.png" alt="logo" align="center"/>
-![image](https://github.com/BU-ISCIII/bacterial_qc/blob/master/images/Schema_Brucellosis_Ourbreak.png)
+
 
 <br>
 
@@ -16,7 +16,7 @@
 
 [Scripts](https://github.com/BU-ISCIII/bacterial_qc/tree/develop) for the development of  quality control (QC) tools for the different stages of [Outbreak Brucellosis](https://github.com/sgonzalezbodi/Outbreak_Brucellosis):
 
-* Tools for parsing statistics obtained in the Preprocesing and Postprocessing (FastQC), Species identification (Kraken-Bracken), quality of assembly (Spades) and Charaterization(Ariba).
+* Tools for parsing statistics obtained in the Preprocesing and Postprocessing (FastQC), Species identification (Kraken-Bracken), Quality of Assembly (Spades) and Charaterization (Ariba).
 
 ## REQUIRED DEPENDENCIES
 
